@@ -22,3 +22,15 @@ plot(sampah, type="o", col="red")
 #cara menambahkan judul ke dalam grafik yang ada
 
 title(main="Data Sampah Kota Medan (Kg)", col.main="blue", font.main=4)
+
+#tambahkan data lain ke dalam sistem dengan cara yang sama seperti input data sampah
+
+sampah_b3 <- c(1, 3, 5, 7, 9)
+
+sampah_plastic <- c(2, 5, 3, 6, 11)
+
+#input data sampah_b3 dan sampah_plastic ke dalam grafik
+
+lines(sampah_b3, type="o", pch=22, lty=2, col="blue")
+lines(sampah_plastic, type="o", pch=11, lty=4, col="black")
+
