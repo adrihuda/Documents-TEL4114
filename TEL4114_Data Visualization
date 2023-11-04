@@ -1,0 +1,24 @@
+#cara menginput data ke dalam R
+
+#kita akan input data sampah yang ada di kota medan
+sampah <- c(3, 5, 6, 7, 9)
+
+#data sampah sudah masuk ke dalam R
+#untuk melihat apakah sampah sudah masuk ke dalam R maka dapat menggunakan cara berikut
+ 
+head(sampah)
+
+#fungsi pertama adalah fungsi plot untuk memplot data sampah. Cara nya adalah
+
+plot(sampah)
+
+#untuk memodifikasi plot yang ada, menambahkan garis dan mengganti warna dapat menggunakan fungsi berikut
+
+plot(sampah, type="o", col="red")
+
+#fungsi type dapat diganti dengan berbagai seperti 
+#s, p, h, dan lain-lain (Silahkan Coba (TM))
+
+#cara menambahkan judul ke dalam grafik yang ada
+
+title(main="Data Sampah Kota Medan (Kg)", col.main="blue", font.main=4)
