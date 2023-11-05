@@ -8,6 +8,7 @@ sampah <- c(3, 5, 6, 7, 9)
  
 head(sampah)
 
+### PLOTTING DATA ###
 #fungsi pertama adalah fungsi plot untuk memplot data sampah. Cara nya adalah
 
 plot(sampah)
@@ -33,4 +34,111 @@ sampah_plastic <- c(2, 5, 3, 6, 11)
 
 lines(sampah_b3, type="o", pch=22, lty=2, col="blue")
 lines(sampah_plastic, type="o", pch=11, lty=4, col="black")
+
+#untuk menentukan batas maksimum garis y dari kurva dapat dilakukan dengan dua cara. (1) tentukan range maksimum dengan cara seperti di bawah ini
+
+g_range <- range(0, sampah, sampah_b3, sampah_plastic)
+
+#cara ke (2) adalah dengan memasukkan range yang ingin kita gunakan dengan menggunakan fungsi ylim ketika kita melakukan plotting
+
+plot(sampah, type="o", col="red", ylim = c(0,12))
+
+#teknik mengatur/mengcustom identitas sumbu x dan y di grafik, misal kita ingin membuat hari (Senin-Jum'at) di sumbu x
+
+#langkah yang dapat kita lakukan adalah dengan menghilangkan indentitas garis x dan y pada saat plotting dengan membuat axes dan ann = FALSE. Contoh
+
+plot(sampah, type="o", col="red", ylim=c(0,12), axes=FALSE, ann=FALSE)
+
+#setelah dihapus maka langkah selanjutnya adalah mengkonstruksi identitas di garis x dan y. Pada kasus ini kita ingin garis x sebagai hari. 
+
+axis(1, at=1:5, lab=c("Sen", "Sel", "Rab", "Kam", "Jum"))
+
+#untuk kurva y kita ingin membuat angka dengan nilai maksimal seperti ylim namun dengan interval 2
+
+axis(2, las=2, at=2*0:g_range[2])
+
+#untuk mempercantik grafik dengan memberikan box pada grafik dapat digunakan fungsi box
+
+box()
+
+#memberikan legenda dari grafik. Penting untuk mengingat setiap code yang telah kita gunakan dalam melakukan "call" pada setiap fungsi yang diberikan. Untuk mempermudah mari kita tulis kembali code yang telah kita susun
+
+plot(sampah, type="o", col="red", ylim=c(0,12), axes=FALSE, ann=FALSE)
+axis(1, at=1:5, lab=c("Sen", "Sel", "Rab", "Kam", "Jum"))
+axis(2, las=2, at=2*0:g_range[2])
+lines(sampah_b3, type="o", pch=22, lty=2, col="blue")
+lines(sampah_plastic, type="o", pch=11, lty=4, col="black")
+box()
+title(main="Data Sampah Kota Medan (Kg)", col.main="blue", font.main=4)
+
+
+#kemudian akan kita buat legend nya
+legend(1, g_range[2], c("Sampah", "Sampah_B3", "Sampah_Plastic"), cex=0.8, col=c("red", "blue", "black"), pch=c(1, 22, 11), lty=c(1, 2, 4))
+
+#memberikan label ke x dan y
+title(xlab="Hari Penjemputan Sampah", col.lab=rgb(0,0.5,0))
+
+title(ylab="Total Sampah Harian (Kg)", col.lab=rgb(0,0.5,0))
+
+################################################################
+
+#Setting Working Directory
+
+#Untuk melihat dimana working directory dapat menggunakan fungsi berikut
+
+getwd()
+
+#atau bisa menggunakan menu files dan tentukan folder working directory anda
+
+#setelah menentukan wd maka selanjutnya cek kembali path dari wd anda
+
+getwd()
+
+#untuk membuka files (CSV) excel anda dapat menggunakan cara sbb:
+#sampah_data <- read.csv("WD/NamaFiles.csv"). Contoh
+
+sampah_data <- read.csv("/Users/reisyaichwani/Documents/RStudio.csv")
+
+#untuk melihat apakah data sudah masuk
+sampah_data
+
+#Untuk dapat memplot data maka dapat digunakan cara sbb:
+
+plot(sampah_data$B3, type="o", col="blue", axes=F, ann=F)
+lines(sampah_data$organic, type="o", col="red")
+lines(sampah_data$plastic, type="o", col="black")
+
+#untuk x, y, label title, legend, dan lain-lain sama seperti data sebelumnya.
+
+#############################################################
+
+### BARPLOT ###
+#kita akan menggunakan salah satu data yang ada pada sampah_data contoh sampah B3
+
+barplot(sampah_data$B3)
+
+#secara umum tampilan data barplot sangat sederhana, untuk memperbaiki kita dapat memasukkan data secara lebih lengkap seperti berikut
+
+barplot(sampah_data$B3, main = "Sampah B3", xlab="Hari Pengumpulan Sampah", ylab = "Jumlah Sampah (Kg)", names.arg = c("Sen", "Sel", "Rab", "Kam", "Jum"), border="blue", density=c(10, 20, 30, 40, 50), ylim=c(0, 12))
+
+#ada beberapa fungsi baru seperti border untuk memberi warna pada garis dari grafik batang, density untuk memberikan pembeda garis dari bar yang dihasilkan
+
+#bagaimana memplot data secara keseluruhan
+
+barplot(as.matrix(sampah_data), main="Data Jumlah Sampah Kota Medan (Kg) berdasarkan Jenis", ylab="Total Sampah (Kg)", beside=T, col=rainbow(5), ylim=c(0, 12))
+
+#kemudian kita buat legend nya
+
+legend("topleft", c("Senin", "Selasa", "Rabu", "Kamis", "Jum'at"), cex=0.5, bty = "n", fill=rainbow(5))
+
+#barplot juga bisa dilakukan dengan bentuk transpossing (t)
+
+barplot(t(sampah_data), main="Data Jumlah Sampah Kota Medan (Kg) berdasarkan Jenis", ylab="Total Sampah (Kg)", col=heat.colors(3), space=0.2, cex.axis = 0.8, las=1, names.arg =c("Sen", "Sel", "Rab", "Kam", "Jum"), cex=0.8, ylim = c(0, 25))
+
+#beri legend
+
+legend("topleft", names(sampah_data), cex=0.8, bty = "n", fill=heat.colors(3))
+
+############################################################
+
 
